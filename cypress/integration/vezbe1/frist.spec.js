@@ -1,6 +1,7 @@
 
 import { EMAIL } from '../../fixtures/constants'
 import { authPage } from '../../page_object/login.page'
+const alert = ' .alert-danger'
 
 
 
@@ -61,18 +62,19 @@ describe('My first Test', function(){
 
     it('TC -03 login to gallery app invalid credentials', function(){ // only -vrti samo ovaj test
         cy.url().should('include', '/login')
-        authPage.email.type(EMAIL.EXISTING)
-        authPage.password.type(EMAIL.PASSWORD)
-        authPage.submit.click()
-        cy.get(' .alert-danger').should('have.text', 'Bad Credentials') // have.text - za proveru teksta unutar. Za slucaj kada proveravamo negativan rezultalt
+        authPage.login(EMAIL.EXISTING, EMAIL.PASSWORD)
+
+        //authPage.email.type(EMAIL.EXISTING)
+        //authPage.password.type(EMAIL.PASSWORD)
+        //authPage.submit.click()
+        authPage.alert.should('have.text', 'Bad Credentials') // have.text - za proveru teksta unutar. Za slucaj kada proveravamo negativan rezultalt
     })
 
     it('TC -04 login to gallery app invalid credentials invalid email', function(){ // only -vrti samo ovaj test
         cy.url().should('include', '/login')
-        authPage.email.type('bokiabc@gmail.com')
-        authPage.password.type('boki1234')
+        authPage.login('aaa@gmail', 'sifra')
         authPage.submit.click()
-        cy.get(' .alert-danger').should('have.text', 'Bad Credentials') // have.text - za proveru teksta unutar. Za slucaj kada proveravamo negativan rezultalt
+        cy.get(alert).should('have.text', 'Bad Credentials') // have.text - za proveru teksta unutar. Za slucaj kada proveravamo negativan rezultalt
     })
 
     it('TC -05 login to gallery app invalid credentials empty', function(){ // only -vrti samo ovaj test

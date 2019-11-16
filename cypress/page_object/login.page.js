@@ -11,7 +11,15 @@ export default class AuthPage {
         return cy.get('button[type=submit]')
     }
     
-
+    login(email, password) {
+        this.email.type(email)
+        this.password.type(password)
+        this.submit.click()
+    }
+    
+    get alert() {
+        return cy.get(' .alert-danger')
+    }
 }
 
 export const authPage = new AuthPage()
